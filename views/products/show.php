@@ -9,6 +9,7 @@ $marginText = $product->marginType()->value === 'fixed' ? money($product->margin
 ?>
 <div class="row between">
   <h1><?= e($product->label()) ?></h1>
+  <?php if ($isAdmin): ?>
   <div class="row">
     <form method="post" action="/products/<?= $product->id() ?>/recalculate">
       <?= csrf_field() ?><button class="btn btn-ghost"><?= $product->hasOutdatedLines() ? 'Recalcular (há insumos com custo novo)' : 'Recalcular' ?></button>
@@ -21,6 +22,7 @@ $marginText = $product->marginType()->value === 'fixed' ? money($product->margin
       <?= csrf_field() ?><button class="btn btn-danger">Excluir</button>
     </form>
   </div>
+  <?php endif; ?>
 </div>
 
 <?php if ($product->imageUrl()): ?>

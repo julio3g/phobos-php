@@ -7,12 +7,14 @@ $addr = implode(', ', array_filter([$client->street(), $client->city(), $client-
 ?>
 <div class="row between">
   <h1><?= e($client->displayName()) ?></h1>
+  <?php if ($isAdmin): ?>
   <div class="row">
     <a class="btn btn-ghost" href="/clients/<?= $client->id() ?>/edit">Editar</a>
     <form method="post" action="/clients/<?= $client->id() ?>/delete" data-confirm="Excluir este cliente?">
       <?= csrf_field() ?><button class="btn btn-danger">Excluir</button>
     </form>
   </div>
+  <?php endif; ?>
 </div>
 
 <dl class="card details">

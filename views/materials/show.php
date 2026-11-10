@@ -5,6 +5,7 @@ use Phobos\Support\Format;
 ?>
 <div class="row between">
   <h1><?= e($material->label()) ?></h1>
+  <?php if ($isAdmin): ?>
   <div class="row">
     <a class="btn btn-ghost" href="/materials/<?= $material->id() ?>/edit">Editar</a>
     <form method="post" action="/materials/<?= $material->id() ?>/archive">
@@ -14,6 +15,7 @@ use Phobos\Support\Format;
       <?= csrf_field() ?><button class="btn btn-danger">Excluir</button>
     </form>
   </div>
+  <?php endif; ?>
 </div>
 
 <?php if ($material->imageUrl()): ?>

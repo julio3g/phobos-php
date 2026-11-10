@@ -6,7 +6,7 @@ use Phobos\Support\Format;
 ?>
 <div class="row between">
   <h1>Clientes</h1>
-  <a class="btn" href="/clients/create">Novo cliente</a>
+  <?php if ($isAdmin): ?><a class="btn" href="/clients/create">Novo cliente</a><?php endif; ?>
 </div>
 
 <form method="get" class="row search">
@@ -26,7 +26,7 @@ use Phobos\Support\Format;
       <td><?= e($c->type()->label()) ?></td>
       <td><?= e($c->documentLabel()) ?> <?= e(Format::document($c->document())) ?></td>
       <td><?= e($c->email() ?? $c->phone()) ?></td>
-      <td class="actions"><a class="btn btn-ghost btn-sm" href="/clients/<?= $c->id() ?>/edit">Editar</a></td>
+      <td class="actions"><?php if ($isAdmin): ?><a class="btn btn-ghost btn-sm" href="/clients/<?= $c->id() ?>/edit">Editar</a><?php endif; ?></td>
     </tr>
   <?php endforeach; ?>
   </tbody>

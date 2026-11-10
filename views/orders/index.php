@@ -7,7 +7,7 @@ use Phobos\Enums\PaymentStatus;
 ?>
 <div class="row between">
   <h1>Ordens de serviço</h1>
-  <a class="btn" href="/orders/create">Nova ordem</a>
+  <?php if ($isAdmin): ?><a class="btn" href="/orders/create">Nova ordem</a><?php endif; ?>
 </div>
 
 <form method="get" class="row search">

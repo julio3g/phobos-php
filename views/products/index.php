@@ -5,7 +5,7 @@
 ?>
 <div class="row between">
   <h1>Produtos</h1>
-  <a class="btn" href="/products/create">Novo produto</a>
+  <?php if ($isAdmin): ?><a class="btn" href="/products/create">Novo produto</a><?php endif; ?>
 </div>
 
 <form method="get" class="row search">
@@ -27,7 +27,7 @@
       <td class="num"><?= money($p->totalCost()) ?></td>
       <td class="num"><?= money($p->salePrice()) ?></td>
       <td><span class="badge <?= $p->isArchived() ? 'badge-cancelled' : 'badge-completed' ?>"><?= $p->isArchived() ? 'Arquivado' : 'Ativo' ?></span></td>
-      <td class="actions"><a class="btn btn-ghost btn-sm" href="/products/<?= $p->id() ?>/edit">Editar</a></td>
+      <td class="actions"><?php if ($isAdmin): ?><a class="btn btn-ghost btn-sm" href="/products/<?= $p->id() ?>/edit">Editar</a><?php endif; ?></td>
     </tr>
   <?php endforeach; ?>
   </tbody>

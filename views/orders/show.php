@@ -6,6 +6,7 @@ use Phobos\Support\Format;
 ?>
 <div class="row between">
   <h1>Ordem <?= e($order->label()) ?> <span class="badge badge-<?= e($order->status()->value) ?>"><?= e($order->status()->label()) ?></span></h1>
+  <?php if ($isAdmin): ?>
   <div class="row">
     <?php if ($order->isEditable()): ?><a class="btn btn-ghost" href="/orders/<?= $order->id() ?>/edit">Editar</a><?php endif; ?>
     <?php if (in_array($order->status()->value, ['draft', 'cancelled'], true)): ?>
@@ -14,6 +15,7 @@ use Phobos\Support\Format;
       </form>
     <?php endif; ?>
   </div>
+  <?php endif; ?>
 </div>
 
 <dl class="card details">
@@ -47,6 +49,7 @@ use Phobos\Support\Format;
   <div><dt>Lucro</dt><dd><?= money($order->profit()) ?></dd></div>
 </dl>
 
+<?php if ($isAdmin): ?>
 <div class="grid two">
   <?php if ($order->status()->next() !== []): ?>
   <section class="card stack">
@@ -80,4 +83,5 @@ use Phobos\Support\Format;
     </form>
   </section>
 </div>
+<?php endif; ?>
 <a href="/orders">← Ordens</a>

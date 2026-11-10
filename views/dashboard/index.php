@@ -15,7 +15,7 @@ use Phobos\Enums\OrderStatus;
 </section>
 
 <section>
-  <div class="row between"><h2>Últimas ordens</h2><a class="btn btn-sm" href="/orders/create">Nova ordem</a></div>
+  <div class="row between"><h2>Últimas ordens</h2><?php if ($isAdmin): ?><a class="btn btn-sm" href="/orders/create">Nova ordem</a><?php endif; ?></div>
   <?php if ($recent === []): ?>
     <p class="muted">Nenhuma ordem ainda.</p>
   <?php else: ?>

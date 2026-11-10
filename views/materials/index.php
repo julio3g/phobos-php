@@ -5,7 +5,7 @@
 ?>
 <div class="row between">
   <h1>Materiais</h1>
-  <a class="btn" href="/materials/create">Novo material</a>
+  <?php if ($isAdmin): ?><a class="btn" href="/materials/create">Novo material</a><?php endif; ?>
 </div>
 
 <form method="get" class="row search">
@@ -27,7 +27,7 @@
       <td><?= money($m->packagePrice()) ?> / <?= e(\Phobos\Support\Format::number($m->packageQuantity())) ?> <?= e($m->unit()->value) ?></td>
       <td class="num"><?= e('R$ ' . number_format($m->unitCost(), 4, ',', '.')) ?> / <?= e($m->unit()->value) ?></td>
       <td><span class="badge <?= $m->isArchived() ? 'badge-cancelled' : 'badge-completed' ?>"><?= $m->isArchived() ? 'Arquivado' : 'Ativo' ?></span></td>
-      <td class="actions"><a class="btn btn-ghost btn-sm" href="/materials/<?= $m->id() ?>/edit">Editar</a></td>
+      <td class="actions"><?php if ($isAdmin): ?><a class="btn btn-ghost btn-sm" href="/materials/<?= $m->id() ?>/edit">Editar</a><?php endif; ?></td>
     </tr>
   <?php endforeach; ?>
   </tbody>

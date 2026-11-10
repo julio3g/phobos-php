@@ -24,6 +24,7 @@ final class View
     /** @param array<string,mixed> $data */
     private static function capture(string $template, array $data): string
     {
+        $isAdmin = Auth::user()?->isAdmin() ?? false; // views escondem ações de escrita de quem só consulta
         extract($data, EXTR_SKIP);
         ob_start();
         require dirname(__DIR__, 2) . '/views/' . $template . '.php';

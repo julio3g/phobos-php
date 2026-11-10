@@ -152,7 +152,7 @@ Script completo em [`database/schema.sql`](../database/schema.sql). Destaques:
 | **Enums (PHP 8.1)** | `OrderStatus` com máquina de estados (`next()`, `canTransitionTo()`), `MarginType`, `Unit`, `PersonType`, `PaymentStatus`. |
 | **PDO + CRUD** | `src/Repositories/*`: `find`, `all`, `save` (INSERT/UPDATE), `delete`; `Core/Database` configura PDO com exceções e prepared statements reais (`EMULATE_PREPARES=false`). |
 | **Integridade** | Transações em `ProductRepository::save` e `OrderRepository::save` (cabeçalho + itens atômicos); numeração de ordens com `pg_advisory_xact_lock`; constraints no banco; tradução de erros `23503`/`23505` em mensagens de domínio. |
-| **Segurança** | Consultas parametrizadas; escape de saída (`e()`); token **CSRF** em todo POST; senhas com `password_hash`; `session_regenerate_id` no login; cookies `HttpOnly`/`SameSite`; upload validando conteúdo real (`getimagesize`), limite de 5MB e nome aleatório; preço/custo dos itens **sempre** lidos do cadastro (nunca do formulário); escrita restrita a administradores. |
+| **Segurança** | Consultas parametrizadas; escape de saída (`e()`); token **CSRF** em todo POST; senhas com `password_hash`; `session_regenerate_id` no login; cookies `HttpOnly`/`SameSite`; upload validando conteúdo real (`getimagesize`), limite de 5MB e nome aleatório; preço/custo dos itens **sempre** lidos do cadastro (nunca do formulário); controle de acesso por perfil (`admin`/`member`) aplicado no servidor (`requireAdmin()` → 403) e refletido na interface; cadastro público sempre cria `member` (só a 1ª conta é `admin`); troca de senha exige a senha atual; ninguém altera o próprio perfil nem exclui a própria conta. |
 | **Validação / exceções** | `Core\Validator` (entrada) + `DomainException` (regras de domínio) tratadas no controller com retorno do formulário. |
 
 ## Decisões de projeto
@@ -167,4 +167,4 @@ Script completo em [`database/schema.sql`](../database/schema.sql). Destaques:
 
 - Sem testes de integração automatizados com banco (apenas testes unitários do domínio em `tests/run.php`).
 - Um único tenant (a versão Next.js original é multiempresa).
-- Possíveis evoluções: gestão de usuários pela interface, paginação, relatórios, emissão fiscal.
+- Possíveis evoluções: recuperação de senha por e-mail, perfis mais granulares, paginação, relatórios, emissão fiscal.
