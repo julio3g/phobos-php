@@ -1,0 +1,9 @@
+RewriteEngine On
+# arquivos/pastas reais (assets, uploads) são servidos direto; o resto vai ao front controller
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
+# nunca executar PHP dentro de uploads
+<IfModule mod_rewrite.c>
+  RewriteRule ^uploads/.*\.(php|phtml|phar)$ - [F,L]
+</IfModule>

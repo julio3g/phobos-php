@@ -1,0 +1,6 @@
+.env
+/public/uploads/*
+!/public/uploads/.gitkeep
+.idea/
+.vscode/
+.env.prod

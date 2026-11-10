@@ -1,0 +1,43 @@
+# Sobe app (PHP+Apache) + PostgreSQL. Uso: copie .env.example para .env, defina as senhas e rode:
+#   docker compose up -d --build
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-phobos_php}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?defina DB_PASSWORD no .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-phobos_php}"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      APP_DEBUG: "false"
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: ${DB_NAME:-phobos_php}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_SSLMODE: disable
+      SEED: ${SEED:-false}
+      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL:-admin@phobos.local}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:?defina SEED_ADMIN_PASSWORD no .env}
+    volumes:
+      - uploads:/var/www/html/public/uploads
+
+volumes:
+  pgdata:
+  uploads:
