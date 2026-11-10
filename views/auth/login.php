@@ -11,4 +11,5 @@
     </label>
     <button class="btn">Entrar</button>
   </form>
+  <p class="muted">Não tem conta? <a href="/register">Criar conta</a></p>
 </div>

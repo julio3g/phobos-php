@@ -4,6 +4,9 @@
 /** @var \Phobos\Models\User|null $user */
 $uri = '/' . trim((string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 $nav = ['/' => 'Início', '/orders' => 'Ordens', '/products' => 'Produtos', '/materials' => 'Materiais', '/clients' => 'Clientes'];
+if ($user && $user->isAdmin()) {
+    $nav['/settings/users'] = 'Usuários';
+}
 ?>
 <!doctype html>
 <html lang="pt-BR">
@@ -24,7 +27,7 @@ $nav = ['/' => 'Início', '/orders' => 'Ordens', '/products' => 'Produtos', '/ma
     </nav>
     <form method="post" action="/logout" class="logout">
       <?= csrf_field() ?>
-      <span class="muted"><?= e($user->name()) ?></span>
+      <a href="/profile" class="muted" title="Meu perfil"><?= e($user->name()) ?></a>
       <button class="btn btn-ghost btn-sm">Sair</button>
     </form>
   </header>

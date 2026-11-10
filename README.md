@@ -22,6 +22,9 @@ Pequenos produtores (crochê, costura, papelaria etc.) calculam o preço “no o
 **Funcionalidades**
 
 - Login com sessão (administrador pode escrever; perfil `member` só consulta).
+- **Cadastro público** (`/register`): a 1ª conta do sistema vira administradora; as demais entram como `member`.
+- **Meu perfil** (`/profile`): editar nome/e-mail e trocar a senha (exige a senha atual).
+- **Usuários e permissões** (`/settings/users`, só admin): criar, promover/rebaixar e excluir usuários (não é possível alterar/excluir a si mesmo).
 - CRUD de **Clientes** (pessoa física com CPF / jurídica com CNPJ, ambos validados).
 - CRUD de **Materiais**: custo unitário = preço da embalagem ÷ quantidade; arquivamento; imagem.
 - CRUD de **Produtos**: composição de insumos + mão de obra + margem (markup, margem sobre a venda ou valor fixo); recálculo quando o preço de um insumo muda; imagem.

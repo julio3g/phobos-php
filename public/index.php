@@ -8,6 +8,8 @@ use Phobos\Controllers\DashboardController;
 use Phobos\Controllers\MaterialController;
 use Phobos\Controllers\OrderController;
 use Phobos\Controllers\ProductController;
+use Phobos\Controllers\ProfileController;
+use Phobos\Controllers\UserController;
 use Phobos\Core\Env;
 use Phobos\Core\Router;
 use Phobos\Core\Session;
@@ -28,7 +30,18 @@ $router = new Router();
 
 $router->add('GET', '/login', [AuthController::class, 'showLogin']);
 $router->add('POST', '/login', [AuthController::class, 'login']);
+$router->add('GET', '/register', [AuthController::class, 'showRegister']);
+$router->add('POST', '/register', [AuthController::class, 'register']);
 $router->add('POST', '/logout', [AuthController::class, 'logout']);
+
+$router->add('GET', '/profile', [ProfileController::class, 'show']);
+$router->add('POST', '/profile', [ProfileController::class, 'update']);
+$router->add('POST', '/profile/password', [ProfileController::class, 'password']);
+
+$router->add('GET', '/settings/users', [UserController::class, 'index']);
+$router->add('POST', '/settings/users', [UserController::class, 'store']);
+$router->add('POST', '/settings/users/{id}/role', [UserController::class, 'updateRole']);
+$router->add('POST', '/settings/users/{id}/delete', [UserController::class, 'destroy']);
 $router->add('GET', '/', [DashboardController::class, 'index']);
 
 // CRUD de cada recurso: /recurso, /recurso/create, /recurso/{id}, /recurso/{id}/edit ...

@@ -27,6 +27,19 @@ final class UserRepository extends AbstractRepository
         return $row === false ? null : $this->hydrate($row);
     }
 
+    public function count(): int
+    {
+        return (int) $this->run('SELECT count(*) FROM users')->fetchColumn();
+    }
+
+    /** Todos os usuários em ordem alfabética (tela de gestão). @return list<User> */
+    public function allByName(): array
+    {
+        $rows = $this->run('SELECT * FROM users ORDER BY lower(name)')->fetchAll();
+
+        return array_map(fn (array $row) => $this->hydrate($row), $rows);
+    }
+
     public function save(Entity $entity): Entity
     {
         /** @var User $entity */
